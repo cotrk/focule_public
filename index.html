@@ -3,20 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Focule - Transform Video into Insight</title>
-  <meta name="description" content="Download videos from YouTube & Twitch, transcribe with AI, and generate viral social media content in seconds.">
-  <meta name="keywords" content="video transcription, AI content generator, YouTube transcriber, Twitch clips, social media content">
+  <title>Focule — Paste a Link. Own the Project.</title>
+  <meta name="description" content="Professional video acquisition meets AI-powered content generation. Download from YouTube & Twitch, transcribe locally, generate viral content. One-time purchase. No subscriptions.">
+  <meta name="keywords" content="video transcription, AI content generator, YouTube downloader, Twitch clips, local AI, privacy first">
   
   <!-- Open Graph -->
-  <meta property="og:title" content="Focule - Transform Video into Insight">
-  <meta property="og:description" content="AI-powered video transcription and social media content generation.">
+  <meta property="og:title" content="Focule — Paste a Link. Own the Project.">
+  <meta property="og:description" content="Professional video acquisition meets AI-powered content generation. $50 one-time purchase.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://focule.com">
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Lato:wght@300;400;700&family=Nunito+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png">
@@ -28,13 +28,12 @@
     :root {
       --cyan: #00F0FF;
       --purple: #BD00FF;
-      --bg-dark: #0B0B0D;
-      --bg-surface: #121214;
-      --bg-card: #161618;
+      --bg-dark: #0A0A0C;
+      --bg-section: #0E0E11;
       --text-primary: #FFFFFF;
-      --text-secondary: #A1A1AA;
-      --text-muted: #71717A;
-      --border: rgba(255, 255, 255, 0.1);
+      --text-secondary: #9CA3AF;
+      --text-muted: #6B7280;
+      --border: rgba(255, 255, 255, 0.08);
       --gradient: linear-gradient(135deg, #00F0FF 0%, #BD00FF 100%);
     }
 
@@ -44,95 +43,42 @@
       box-sizing: border-box;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
-      font-family: 'Lato', sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       background: var(--bg-dark);
       color: var(--text-primary);
       line-height: 1.6;
-      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
     }
 
-    h1, h2, h3, h4 {
+    h1, h2, h3 {
       font-family: 'Montserrat', sans-serif;
       font-weight: 700;
-      letter-spacing: -0.02em;
+      line-height: 1.2;
     }
 
     .container {
-      max-width: 1200px;
+      max-width: 1100px;
       margin: 0 auto;
       padding: 0 24px;
     }
 
-    /* Navigation */
-    nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 100;
-      padding: 20px 0;
-      background: rgba(11, 11, 13, 0.8);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border);
-    }
-
-    nav .container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      text-decoration: none;
-    }
-
-    .logo img {
-      height: 36px;
-      width: auto;
-    }
-
-    .logo-text {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 800;
-      font-size: 1.5rem;
-      background: var(--gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 32px;
-    }
-
-    .nav-links a {
-      color: var(--text-secondary);
-      text-decoration: none;
-      font-size: 0.95rem;
-      transition: color 0.2s;
-    }
-
-    .nav-links a:hover {
-      color: var(--cyan);
-    }
-
+    /* Buttons */
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 12px 28px;
+      padding: 16px 32px;
       border-radius: 8px;
-      font-family: 'Nunito Sans', sans-serif;
+      font-family: 'Montserrat', sans-serif;
       font-weight: 600;
-      font-size: 0.95rem;
+      font-size: 1rem;
       text-decoration: none;
-      transition: all 0.3s ease;
+      transition: all 0.2s ease;
       cursor: pointer;
       border: none;
     }
@@ -144,25 +90,24 @@
 
     .btn-primary:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(0, 240, 255, 0.3);
+      box-shadow: 0 8px 24px rgba(0, 240, 255, 0.25);
     }
 
-    .btn-secondary {
-      background: transparent;
-      color: var(--cyan);
-      border: 1px solid var(--cyan);
+    .btn-large {
+      padding: 20px 48px;
+      font-size: 1.15rem;
     }
 
-    .btn-secondary:hover {
-      background: rgba(0, 240, 255, 0.1);
-    }
-
-    /* Hero Section */
+    /* ==================== */
+    /* SECTION 1: HERO      */
+    /* ==================== */
     .hero {
       min-height: 100vh;
       display: flex;
       align-items: center;
-      padding: 120px 0 80px;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 24px;
       position: relative;
       overflow: hidden;
     }
@@ -170,286 +115,213 @@
     .hero::before {
       content: '';
       position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle at 30% 20%, rgba(0, 240, 255, 0.08) 0%, transparent 50%),
-                  radial-gradient(circle at 70% 80%, rgba(189, 0, 255, 0.08) 0%, transparent 50%);
-      animation: pulse 15s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.5; }
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(0, 240, 255, 0.08) 0%, transparent 60%);
+      pointer-events: none;
     }
 
     .hero-content {
       position: relative;
       z-index: 1;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 60px;
-      align-items: center;
+      max-width: 700px;
     }
 
-    .hero-text h1 {
-      font-size: 3.5rem;
-      line-height: 1.1;
-      margin-bottom: 24px;
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 800;
+      margin-bottom: 20px;
+      letter-spacing: -0.02em;
     }
 
-    .hero-text h1 span {
+    .hero h1 span {
       background: var(--gradient);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
 
-    .hero-text p {
+    .hero-subtitle {
       font-size: 1.25rem;
       color: var(--text-secondary);
       margin-bottom: 40px;
-      max-width: 500px;
+      max-width: 550px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .hero-cta {
       display: flex;
+      flex-direction: column;
+      align-items: center;
       gap: 16px;
-      flex-wrap: wrap;
+    }
+
+    .hero-price {
+      color: var(--text-muted);
+      font-size: 0.9rem;
     }
 
     .hero-image {
+      margin-top: 60px;
       position: relative;
     }
 
     .hero-image img {
-      width: 100%;
-      border-radius: 16px;
-      box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5);
+      max-width: 100%;
+      border-radius: 12px;
       border: 1px solid var(--border);
+      box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5);
     }
 
     .hero-badge {
       position: absolute;
-      top: -20px;
-      right: -20px;
-      background: var(--gradient);
-      color: #000;
-      padding: 12px 20px;
-      border-radius: 50px;
-      font-weight: 700;
-      font-size: 0.9rem;
-      box-shadow: 0 10px 30px rgba(0, 240, 255, 0.3);
+      top: -12px;
+      right: -12px;
+      background: var(--bg-dark);
+      border: 1px solid var(--cyan);
+      color: var(--cyan);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
     }
 
-    /* Features Section */
+    /* ==================== */
+    /* SECTION 2: FEATURES  */
+    /* ==================== */
     .features {
-      padding: 120px 0;
-      background: var(--bg-surface);
-    }
-
-    .section-header {
-      text-align: center;
-      max-width: 600px;
-      margin: 0 auto 60px;
-    }
-
-    .section-header h2 {
-      font-size: 2.5rem;
-      margin-bottom: 16px;
-    }
-
-    .section-header p {
-      color: var(--text-secondary);
-      font-size: 1.1rem;
+      padding: 100px 24px;
+      background: var(--bg-section);
     }
 
     .features-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 32px;
+      gap: 40px;
     }
 
-    .feature-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 32px;
-      transition: all 0.3s ease;
-    }
-
-    .feature-card:hover {
-      transform: translateY(-8px);
-      border-color: rgba(0, 240, 255, 0.3);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    .feature {
+      text-align: center;
     }
 
     .feature-icon {
-      width: 56px;
-      height: 56px;
-      background: var(--gradient);
-      border-radius: 12px;
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 20px;
+      background: linear-gradient(135deg, rgba(0, 240, 255, 0.15) 0%, rgba(189, 0, 255, 0.15) 100%);
+      border-radius: 16px;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 20px;
     }
 
     .feature-icon svg {
-      width: 28px;
-      height: 28px;
-      stroke: #000;
+      width: 32px;
+      height: 32px;
+      stroke: var(--cyan);
     }
 
-    .feature-card h3 {
+    .feature h3 {
       font-size: 1.25rem;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
-    .feature-card p {
+    .feature p {
       color: var(--text-secondary);
       font-size: 0.95rem;
+      max-width: 280px;
+      margin: 0 auto;
     }
 
-    /* How It Works */
-    .how-it-works {
-      padding: 120px 0;
-    }
-
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 24px;
-      margin-top: 60px;
-    }
-
-    .step {
+    /* ==================== */
+    /* SECTION 3: TRUST     */
+    /* ==================== */
+    .trust {
+      padding: 120px 24px;
       text-align: center;
-      position: relative;
     }
 
-    .step::after {
-      content: '';
-      position: absolute;
-      top: 40px;
-      right: -12px;
-      width: calc(100% - 80px);
-      height: 2px;
-      background: var(--gradient);
-      opacity: 0.3;
+    .trust-content {
+      max-width: 700px;
+      margin: 0 auto;
     }
 
-    .step:last-child::after {
-      display: none;
+    .trust-quote {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 500;
+      line-height: 1.5;
+      margin-bottom: 24px;
+      color: var(--text-primary);
     }
 
-    .step-number {
-      width: 80px;
-      height: 80px;
-      background: var(--bg-card);
-      border: 2px solid var(--cyan);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 20px;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 1.5rem;
-      font-weight: 700;
+    .trust-quote span {
       color: var(--cyan);
     }
 
-    .step h4 {
-      font-size: 1.1rem;
-      margin-bottom: 8px;
-    }
-
-    .step p {
+    .trust-tagline {
+      font-size: 1rem;
       color: var(--text-muted);
-      font-size: 0.9rem;
+      font-weight: 500;
     }
 
-    /* Pricing */
-    .pricing {
-      padding: 120px 0;
-      background: var(--bg-surface);
+    /* ==================== */
+    /* SECTION 4: CTA       */
+    /* ==================== */
+    .cta {
+      padding: 100px 24px;
+      background: var(--bg-section);
+      text-align: center;
     }
 
-    .pricing-card {
+    .cta-content {
       max-width: 500px;
       margin: 0 auto;
-      background: var(--bg-card);
-      border: 2px solid var(--cyan);
-      border-radius: 24px;
-      padding: 48px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
     }
 
-    .pricing-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: var(--gradient);
-    }
-
-    .pricing-badge {
-      display: inline-block;
-      background: var(--gradient);
-      color: #000;
-      padding: 6px 16px;
-      border-radius: 50px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      margin-bottom: 24px;
-    }
-
-    .price {
+    .cta-price {
       font-family: 'Montserrat', sans-serif;
       font-size: 4rem;
       font-weight: 800;
       margin-bottom: 8px;
     }
 
-    .price-note {
-      color: var(--text-muted);
+    .cta-note {
+      color: var(--text-secondary);
       margin-bottom: 32px;
+      font-size: 1.1rem;
     }
 
-    .pricing-features {
-      list-style: none;
-      text-align: left;
-      margin-bottom: 40px;
+    .cta-features {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-top: 24px;
+      flex-wrap: wrap;
     }
 
-    .pricing-features li {
+    .cta-feature {
       display: flex;
       align-items: center;
-      gap: 12px;
-      padding: 12px 0;
-      border-bottom: 1px solid var(--border);
-      color: var(--text-secondary);
+      gap: 8px;
+      color: var(--text-muted);
+      font-size: 0.9rem;
     }
 
-    .pricing-features li:last-child {
-      border-bottom: none;
-    }
-
-    .pricing-features svg {
-      width: 20px;
-      height: 20px;
+    .cta-feature svg {
+      width: 16px;
+      height: 16px;
       stroke: var(--cyan);
-      flex-shrink: 0;
     }
 
-    /* Footer */
+    /* ==================== */
+    /* SECTION 5: FOOTER    */
+    /* ==================== */
     footer {
-      padding: 60px 0;
+      padding: 60px 24px;
       border-top: 1px solid var(--border);
     }
 
@@ -457,11 +329,34 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .footer-logo img {
+      height: 32px;
+    }
+
+    .footer-logo span {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 1.25rem;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
     .footer-links {
       display: flex;
       gap: 32px;
+      flex-wrap: wrap;
     }
 
     .footer-links a {
@@ -476,266 +371,140 @@
     }
 
     .footer-copy {
+      width: 100%;
+      text-align: center;
       color: var(--text-muted);
-      font-size: 0.9rem;
+      font-size: 0.85rem;
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
     }
 
     /* Responsive */
-    @media (max-width: 1024px) {
-      .hero-content {
-        grid-template-columns: 1fr;
-        text-align: center;
-      }
-
-      .hero-text p {
-        margin-left: auto;
-        margin-right: auto;
-      }
-
-      .hero-cta {
-        justify-content: center;
-      }
-
-      .hero-image {
-        order: -1;
-        max-width: 600px;
-        margin: 0 auto;
-      }
-
-      .features-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .steps {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .step::after {
-        display: none;
-      }
-    }
-
     @media (max-width: 768px) {
-      .hero-text h1 {
-        font-size: 2.5rem;
-      }
-
-      .nav-links {
-        display: none;
-      }
-
       .features-grid {
         grid-template-columns: 1fr;
-      }
-
-      .steps {
-        grid-template-columns: 1fr;
+        gap: 48px;
       }
 
       .footer-content {
         flex-direction: column;
-        gap: 24px;
         text-align: center;
+      }
+
+      .footer-links {
+        justify-content: center;
+      }
+
+      .cta-features {
+        flex-direction: column;
+        align-items: center;
       }
     }
   </style>
 </head>
 <body>
-  <!-- Navigation -->
-  <nav>
-    <div class="container">
-      <a href="/" class="logo">
-        <img src="logo.png" alt="Focule">
-      </a>
-      <div class="nav-links">
-        <a href="#features">Features</a>
-        <a href="#how-it-works">How It Works</a>
-        <a href="#pricing">Pricing</a>
-        <a href="mailto:help@focule.com">Support</a>
-        <a href="https://focule.lemonsqueezy.com/buy/d47c6618-71e0-4350-9669-04a2cc71362a?embed=1" class="btn btn-primary lemonsqueezy-button">Get Focule</a>
-      </div>
-    </div>
-  </nav>
 
-  <!-- Hero -->
+  <!-- SECTION 1: HERO -->
   <section class="hero">
-    <div class="container">
-      <div class="hero-content">
-        <div class="hero-text">
-          <h1>Transform Video into <span>Insight</span></h1>
-          <p>Download videos from YouTube & Twitch, transcribe with AI, and generate viral social media content — all in one desktop app.</p>
-          <div class="hero-cta">
-            <a href="https://focule.lemonsqueezy.com/buy/d47c6618-71e0-4350-9669-04a2cc71362a?embed=1" class="btn btn-primary lemonsqueezy-button">Get Focule — $50</a>
-            <a href="#how-it-works" class="btn btn-secondary">See How It Works</a>
-          </div>
-        </div>
-        <div class="hero-image">
-          <img src="app-screenshot.png" alt="Focule App Screenshot">
-          <span class="hero-badge">Windows</span>
-        </div>
+    <div class="hero-content">
+      <h1>Paste a Link.<br><span>Own the Project.</span></h1>
+      <p class="hero-subtitle">Professional video acquisition meets AI-powered content generation. Download, transcribe, and create — all locally on your machine.</p>
+      <div class="hero-cta">
+        <a href="https://focule.lemonsqueezy.com/buy/d47c6618-71e0-4350-9669-04a2cc71362a?embed=1" class="btn btn-primary btn-large lemonsqueezy-button">Get Focule — $50</a>
+        <span class="hero-price">One-time purchase • No subscriptions</span>
+      </div>
+      <div class="hero-image">
+        <img src="app-screenshot.png" alt="Focule App">
+        <span class="hero-badge">Windows</span>
       </div>
     </div>
   </section>
 
-  <!-- Features -->
-  <section class="features" id="features">
+  <!-- SECTION 2: THREE KEY FEATURES -->
+  <section class="features">
     <div class="container">
-      <div class="section-header">
-        <h2>Everything You Need</h2>
-        <p>From video download to viral content — Focule handles the entire workflow.</p>
-      </div>
       <div class="features-grid">
-        <div class="feature-card">
+        <div class="feature">
           <div class="feature-icon">
-            <svg fill="none" viewBox="0 0 24 24" stroke-width="2">
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5">
               <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
             </svg>
           </div>
-          <h3>Video Download</h3>
-          <p>Grab videos from YouTube and Twitch with a single click. Supports VODs, clips, and full streams.</p>
+          <h3>Professional Downloads</h3>
+          <p>Safe, high-quality video & audio from YouTube and Twitch. No sketchy websites or browser extensions.</p>
         </div>
-        <div class="feature-card">
+        <div class="feature">
           <div class="feature-icon">
-            <svg fill="none" viewBox="0 0 24 24" stroke-width="2">
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5">
               <path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" />
             </svg>
           </div>
-          <h3>AI Transcription</h3>
-          <p>Accurate speech-to-text powered by Whisper. Works offline, keeping your content private.</p>
+          <h3>Local AI Transcription</h3>
+          <p>Accurate speech-to-text powered by Whisper. Runs offline on your machine. 100% private.</p>
         </div>
-        <div class="feature-card">
+        <div class="feature">
           <div class="feature-icon">
-            <svg fill="none" viewBox="0 0 24 24" stroke-width="2">
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5">
               <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456z" />
             </svg>
           </div>
           <h3>Content Generation</h3>
-          <p>AI creates viral hooks, descriptions, hashtags, and keywords optimized for engagement.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">
-            <svg fill="none" viewBox="0 0 24 24" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 8.25h15m-16.5 7.5h15m-1.8-13.5l-3.9 19.5m-2.1-19.5l-3.9 19.5" />
-            </svg>
-          </div>
-          <h3>Hashtag Research</h3>
-          <p>Get 10 optimized hashtags mixing broad reach, local targeting, and hyper-niche tags.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">
-            <svg fill="none" viewBox="0 0 24 24" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
-            </svg>
-          </div>
-          <h3>Thumbnail Prompts</h3>
-          <p>Generate text-to-image prompts optimized for Google ImageFX and other AI art tools.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">
-            <svg fill="none" viewBox="0 0 24 24" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
-            </svg>
-          </div>
-          <h3>100% Private</h3>
-          <p>Everything runs locally on your machine. Your videos and content never leave your computer.</p>
+          <p>Hooks, descriptions, hashtags, and keywords — generated by AI, ready to copy-paste.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- How It Works -->
-  <section class="how-it-works" id="how-it-works">
-    <div class="container">
-      <div class="section-header">
-        <h2>How It Works</h2>
-        <p>From URL to viral content in four simple steps.</p>
-      </div>
-      <div class="steps">
-        <div class="step">
-          <div class="step-number">1</div>
-          <h4>Paste URL</h4>
-          <p>Drop a YouTube or Twitch link</p>
-        </div>
-        <div class="step">
-          <div class="step-number">2</div>
-          <h4>Download</h4>
-          <p>Video is fetched automatically</p>
-        </div>
-        <div class="step">
-          <div class="step-number">3</div>
-          <h4>Transcribe</h4>
-          <p>AI converts speech to text</p>
-        </div>
-        <div class="step">
-          <div class="step-number">4</div>
-          <h4>Generate</h4>
-          <p>Get hooks, hashtags & more</p>
-        </div>
+  <!-- SECTION 3: TRUST / PHILOSOPHY -->
+  <section class="trust">
+    <div class="trust-content">
+      <p class="trust-quote">"Your content belongs on <span>your machine</span>, not in a cloud silo. Focule is built for creators who value privacy and ownership."</p>
+      <p class="trust-tagline">Local files. Local AI. No tracking. No compromises.</p>
+    </div>
+  </section>
+
+  <!-- SECTION 4: LARGE CTA -->
+  <section class="cta">
+    <div class="cta-content">
+      <div class="cta-price">$50</div>
+      <p class="cta-note">One-time purchase. Free updates forever.</p>
+      <a href="https://focule.lemonsqueezy.com/buy/d47c6618-71e0-4350-9669-04a2cc71362a?embed=1" class="btn btn-primary btn-large lemonsqueezy-button">Buy Focule Now</a>
+      <div class="cta-features">
+        <span class="cta-feature">
+          <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+          YouTube & Twitch
+        </span>
+        <span class="cta-feature">
+          <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+          Windows
+        </span>
+        <span class="cta-feature">
+          <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+          No subscriptions
+        </span>
       </div>
     </div>
   </section>
 
-  <!-- Pricing -->
-  <section class="pricing" id="pricing">
-    <div class="container">
-      <div class="section-header">
-        <h2>Simple Pricing</h2>
-        <p>One-time purchase. No subscriptions. Free updates forever.</p>
-      </div>
-      <div class="pricing-card">
-        <span class="pricing-badge">Lifetime License</span>
-        <div class="price">$50</div>
-        <p class="price-note">One-time payment • Instant download</p>
-        <ul class="pricing-features">
-          <li>
-            <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
-            YouTube & Twitch support
-          </li>
-          <li>
-            <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
-            AI transcription (runs locally)
-          </li>
-          <li>
-            <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
-            3 viral hook options per video
-          </li>
-          <li>
-            <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
-            SEO descriptions & hashtags
-          </li>
-          <li>
-            <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
-            Thumbnail AI prompts
-          </li>
-          <li>
-            <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
-            Windows compatible (Mac coming soon)
-          </li>
-          <li>
-            <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
-            Free lifetime updates
-          </li>
-        </ul>
-        <a href="https://focule.lemonsqueezy.com/buy/d47c6618-71e0-4350-9669-04a2cc71362a?embed=1" class="btn btn-primary lemonsqueezy-button" style="width: 100%; padding: 16px;">Buy Now — $50</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
+  <!-- SECTION 5: FOOTER -->
   <footer>
     <div class="container">
       <div class="footer-content">
+        <div class="footer-logo">
+          <img src="logo.png" alt="Focule">
+          <span>Focule</span>
+        </div>
         <div class="footer-links">
           <a href="mailto:help@focule.com">Support</a>
           <a href="https://www.youtube.com/@foculeapp" target="_blank">YouTube</a>
-          <a href="https://x.com/foculeapp" target="_blank">X / Twitter</a>
+          <a href="https://x.com/foculeapp" target="_blank">X</a>
           <a href="https://www.tiktok.com/@foculeapp" target="_blank">TikTok</a>
         </div>
-        <p class="footer-copy">© 2025 Focule. All rights reserved.</p>
       </div>
+      <p class="footer-copy">© 2025 Focule. All rights reserved.</p>
     </div>
   </footer>
+
 </body>
 </html>
-
-
