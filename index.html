@@ -24,6 +24,55 @@
   <!-- LemonSqueezy Checkout -->
   <script src="https://assets.lemonsqueezy.com/lemon.js" defer></script>
   
+  <!-- Error Overlay Styles -->
+  <style>
+    .ls-error-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .ls-error-content {
+      background: var(--bg-section);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px;
+      max-width: 500px;
+      text-align: center;
+      position: relative;
+    }
+    
+    .ls-error-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+    
+    .ls-error-close:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--cyan);
+    }
+  </style>
+  
   <style>
     :root {
       --cyan: #00F0FF;
@@ -566,6 +615,169 @@
       <p class="footer-copy">© 2025 Focule. All rights reserved.</p>
     </div>
   </footer>
+
+  <!-- LemonSqueezy Error Handler -->
+  <script>
+    // Handle LemonSqueezy checkout errors
+    document.addEventListener('DOMContentLoaded', function() {
+      // Listen for LemonSqueezy events
+      if (window.LemonSqueezy) {
+        window.LemonSqueezy.Setup({
+          eventHandler: function(data) {
+            if (data.event === 'Checkout.Error') {
+              console.error('LemonSqueezy checkout error:', data);
+              // Close any error overlays
+              closeErrorOverlay();
+            }
+            if (data.event === 'Checkout.Closed') {
+              // Checkout was closed, ensure overlay is removed
+              closeErrorOverlay();
+            }
+          }
+        });
+      }
+
+      // Function to close error overlay
+      function closeErrorOverlay() {
+        // Remove any LemonSqueezy error overlays
+        const overlays = document.querySelectorAll('[class*="lemonsqueezy"], [id*="lemonsqueezy"], [class*="error"], .ls-error-overlay');
+        overlays.forEach(overlay => {
+          overlay.style.display = 'none';
+          overlay.remove();
+        });
+
+        // Remove any iframes that might be showing errors
+        const iframes = document.querySelectorAll('iframe[src*="lemonsqueezy"]');
+        iframes.forEach(iframe => {
+          if (iframe.src.includes('error') || iframe.src.includes('404') || iframe.src.includes('NOT_FOUND')) {
+            iframe.remove();
+          }
+        });
+
+        // Remove any modal/overlay backdrops
+        const backdrops = document.querySelectorAll('[class*="backdrop"], [class*="overlay"], [class*="modal"]');
+        backdrops.forEach(backdrop => {
+          if (backdrop.style && (backdrop.style.zIndex > 1000 || backdrop.classList.contains('ls-error-overlay'))) {
+            backdrop.style.display = 'none';
+            backdrop.remove();
+          }
+        });
+
+        // Force remove any divs containing error text
+        const errorDivs = document.querySelectorAll('div');
+        errorDivs.forEach(div => {
+          if (div.textContent && (div.textContent.includes('404') || div.textContent.includes('NOT_FOUND')) && div.style && div.style.position === 'fixed') {
+            div.remove();
+          }
+        });
+      }
+
+      // Add click handler to close button if error appears
+      document.addEventListener('click', function(e) {
+        // If clicking outside checkout area or on error message, try to close
+        if (e.target.textContent && e.target.textContent.includes('404')) {
+          closeErrorOverlay();
+        }
+        if (e.target.textContent && e.target.textContent.includes('NOT_FOUND')) {
+          closeErrorOverlay();
+        }
+      });
+
+      // Add escape key handler
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          closeErrorOverlay();
+        }
+      });
+
+      // Monitor for error messages and add close button
+      const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          mutation.addedNodes.forEach(function(node) {
+            if (node.nodeType === 1) { // Element node
+              // Check if it's an error message
+              const isError = node.textContent && (node.textContent.includes('404') || node.textContent.includes('NOT_FOUND') || node.textContent.includes('Code:'));
+              
+              if (isError) {
+                // Check if it's a fixed/absolute positioned element (likely an overlay)
+                const computedStyle = window.getComputedStyle(node);
+                const isOverlay = computedStyle.position === 'fixed' || computedStyle.position === 'absolute' || 
+                                 computedStyle.zIndex > 1000 || node.classList.contains('ls-overlay');
+                
+                if (isOverlay) {
+                  // Add a close button
+                  if (!node.querySelector('.ls-error-close')) {
+                    const closeBtn = document.createElement('button');
+                    closeBtn.className = 'ls-error-close';
+                    closeBtn.textContent = '✕';
+                    closeBtn.setAttribute('aria-label', 'Close error');
+                    closeBtn.onclick = function(e) {
+                      e.stopPropagation();
+                      e.preventDefault();
+                      closeErrorOverlay();
+                      node.remove();
+                    };
+                    
+                    // Make sure parent is positioned
+                    if (node.style) {
+                      node.style.position = node.style.position || 'relative';
+                    }
+                    
+                    // Try to append to the node or find a child container
+                    const container = node.querySelector('div') || node;
+                    if (container) {
+                      container.appendChild(closeBtn);
+                    }
+                  }
+                  
+                  // Also try to close after a short delay if user clicks outside
+                  setTimeout(function() {
+                    document.addEventListener('click', function closeOnOutsideClick(e) {
+                      if (!node.contains(e.target) && e.target !== closeBtn) {
+                        closeErrorOverlay();
+                        node.remove();
+                        document.removeEventListener('click', closeOnOutsideClick);
+                      }
+                    }, { once: true });
+                  }, 100);
+                }
+              }
+            }
+          });
+        });
+      });
+
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true,
+        attributes: true,
+        attributeFilter: ['style', 'class']
+      });
+      
+      // Also check periodically for stuck overlays
+      setInterval(function() {
+        const errorElements = document.querySelectorAll('*');
+        errorElements.forEach(el => {
+          if (el.textContent && (el.textContent.includes('404: NOT_FOUND') || el.textContent.includes('Code: NOT_FOUND'))) {
+            const style = window.getComputedStyle(el);
+            if (style.position === 'fixed' && style.zIndex > 1000) {
+              // This is likely a stuck error overlay
+              if (!el.querySelector('.ls-error-close')) {
+                const closeBtn = document.createElement('button');
+                closeBtn.className = 'ls-error-close';
+                closeBtn.textContent = '✕';
+                closeBtn.onclick = function() {
+                  closeErrorOverlay();
+                  el.remove();
+                };
+                el.appendChild(closeBtn);
+              }
+            }
+          }
+        });
+      }, 1000);
+    });
+  </script>
 
 </body>
 </html>
