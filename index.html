@@ -107,7 +107,7 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 80px 24px;
+      padding: 120px 24px 80px;
       position: relative;
       overflow: hidden;
     }
@@ -402,9 +402,69 @@
         align-items: center;
       }
     }
+  /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 16px 24px;
+      background: rgba(10, 10, 12, 0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .header-logo img {
+      height: 40px;
+      width: auto;
+    }
+
+    .header-cta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .header-cta a {
+      padding: 10px 20px;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      .header-logo img {
+        height: 32px;
+      }
+    }
   </style>
 </head>
 <body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-content">
+      <a href="/" class="header-logo">
+        <img src="logo.png" alt="Focule">
+      </a>
+      <div class="header-cta">
+        <a href="https://focule.lemonsqueezy.com/buy/d47c6618-71e0-4350-9669-04a2cc71362a?embed=1" class="btn btn-primary lemonsqueezy-button">Get Focule</a>
+      </div>
+    </div>
+  </header>
 
   <!-- SECTION 1: HERO -->
   <section class="hero">
