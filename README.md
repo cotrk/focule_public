@@ -21,3 +21,4 @@ Just open `index.html` in a browser.
 - **Buy:** [LemonSqueezy/Gumroad link]
 - **Support:** help@focule.com
 
+
