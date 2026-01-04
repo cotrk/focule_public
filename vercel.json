@@ -1,10 +1,4 @@
 {
   "version": 2,
-  "rewrites": [
-    {
-      "source": "/checkout/:path*",
-      "destination": "https://focule.lemonsqueezy.com/checkout/:path*"
-    }
-  ],
   "cleanUrls": true
 }
