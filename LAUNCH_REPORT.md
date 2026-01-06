@@ -101,9 +101,9 @@ if (window.LemonSqueezy) {
 ### Payment Integration
 
 - **Provider:** LemonSqueezy
-- **Product ID:** 1162309
+- **Product ID:** 1163204
 - **Price:** $50 (one-time purchase)
-- **Checkout URL:** `https://focule.lemonsqueezy.com/buy/1162309?embed=1`
+- **Checkout URL:** `https://focule.lemonsqueezy.com/buy/1163204?embed=1`
 
 ### Domain
 
