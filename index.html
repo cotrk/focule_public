@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Focule — Paste a Link. Own the Project.</title>
+  <meta name="description"
+    content="Professional video acquisition meets AI-powered content generation. Download from YouTube & Twitch, transcribe locally, generate viral content. One-time purchase. No subscriptions.">
+  <meta name="keywords"
+    content="video transcription, AI content generator, YouTube downloader, Twitch clips, local AI, privacy first">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Focule — Paste a Link. Own the Project.">
+  <meta property="og:description"
+    content="Professional video acquisition meets AI-powered content generation. $50 one-time purchase.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://focule.com">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png">
+
+  <!-- LemonSqueezy Checkout -->
+  <script src="https://assets.lemonsqueezy.com/lemon.js" defer></script>
+  <script>
+    window.createLemonSqueezy = function () {
+      if (window.createLemonSqueezy) {
+        window.LemonSqueezy.Setup({
+          eventHandler: (event) => {
+            console.log('LemonSqueezy Event:', event);
+          }
+        });
+      }
+    };
+  </script>
+
+  <!-- Error Overlay Styles -->
+  <style>
+    .ls-error-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ls-error-content {
+      background: var(--bg-section);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px;
+      max-width: 500px;
+      text-align: center;
+      position: relative;
+    }
+
+    .ls-error-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .ls-error-close:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--cyan);
+    }
+  </style>
+
+  <style>
+    :root {
+      --cyan: #00F0FF;
+      --purple: #BD00FF;
+      --bg-dark: #0A0A0C;
+      --bg-section: #0E0E11;
+      --text-primary: #FFFFFF;
+      --text-secondary: #9CA3AF;
+      --text-muted: #6B7280;
+      --border: rgba(255, 255, 255, 0.08);
+      --gradient: linear-gradient(135deg, #00F0FF 0%, #BD00FF 100%);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-primary);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px 32px;
+      border-radius: 8px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--gradient);
+      color: #000;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 240, 255, 0.25);
+    }
+
+    .btn-large {
+      padding: 20px 48px;
+      font-size: 1.15rem;
+    }
+
+    /* ==================== */
+    /* SECTION 1: HERO      */
+    /* ==================== */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 24px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(0, 240, 255, 0.08) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 700px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 800;
+      margin-bottom: 20px;
+      letter-spacing: -0.02em;
+    }
+
+    .hero h1 span {
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      margin-bottom: 40px;
+      max-width: 550px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-cta {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .hero-price {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .hero-image {
+      margin-top: 60px;
+      position: relative;
+    }
+
+    .hero-image img {
+      max-width: 100%;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5);
+    }
+
+    .hero-badge {
+      position: absolute;
+      top: -12px;
+      right: -12px;
+      background: var(--bg-dark);
+      border: 1px solid var(--cyan);
+      color: var(--cyan);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    /* ==================== */
+    /* SECTION 2: FEATURES  */
+    /* ==================== */
+    .features {
+      padding: 100px 24px;
+      background: var(--bg-section);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+    }
+
+    .feature {
+      text-align: center;
+    }
+
+    .feature-icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 20px;
+      background: linear-gradient(135deg, rgba(0, 240, 255, 0.15) 0%, rgba(189, 0, 255, 0.15) 100%);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .feature-icon svg {
+      width: 32px;
+      height: 32px;
+      stroke: var(--cyan);
+    }
+
+    .feature h3 {
+      font-size: 1.25rem;
+      margin-bottom: 10px;
+    }
+
+    .feature p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      max-width: 280px;
+      margin: 0 auto;
+    }
+
+    /* ==================== */
+    /* SECTION 3: TRUST     */
+    /* ==================== */
+    .trust {
+      padding: 120px 24px;
+      text-align: center;
+    }
+
+    .trust-content {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .trust-quote {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 500;
+      line-height: 1.5;
+      margin-bottom: 24px;
+      color: var(--text-primary);
+    }
+
+    .trust-quote span {
+      color: var(--cyan);
+    }
+
+    .trust-tagline {
+      font-size: 1rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* ==================== */
+    /* SECTION 4: CTA       */
+    /* ==================== */
+    .cta {
+      padding: 100px 24px;
+      background: var(--bg-section);
+      text-align: center;
+    }
+
+    .cta-content {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .cta-price {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 4rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .cta-note {
+      color: var(--text-secondary);
+      margin-bottom: 32px;
+      font-size: 1.1rem;
+    }
+
+    .cta-features {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+
+    .cta-feature {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .cta-feature svg {
+      width: 16px;
+      height: 16px;
+      stroke: var(--cyan);
+    }
+
+    /* ==================== */
+    /* SECTION 5: FOOTER    */
+    /* ==================== */
+    footer {
+      padding: 60px 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .footer-logo img {
+      height: 40px;
+    }
+
+    .footer-logo span {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 1.25rem;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--cyan);
+    }
+
+    .footer-copy {
+      width: 100%;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .features-grid {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+
+      .footer-content {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .footer-links {
+        justify-content: center;
+      }
+
+      .cta-features {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 16px 24px;
+      background: rgba(10, 10, 12, 0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .header-logo img {
+      height: 40px;
+      width: auto;
+    }
+
+    .header-cta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .header-cta a {
+      padding: 10px 20px;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      .header-logo img {
+        height: 32px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-content">
+      <a href="/" class="header-logo">
+        <img src="logo.png" alt="Focule">
+      </a>
+      <div class="header-cta">
+        <a href="https://focule.lemonsqueezy.com/checkout/buy/c91e2d74-d3a9-4c2b-b835-bb0ea890f663"
+          class="btn btn-primary lemonsqueezy-button">Buy
+          Focule Now</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- SECTION 1: HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Paste a Link.<br><span>Own the Project.</span></h1>
+      <p class="hero-subtitle">Professional video acquisition meets AI-powered content generation. Download, transcribe,
+        and create — all locally on your machine.</p>
+      <div class="hero-cta">
+        <a href="https://focule.lemonsqueezy.com/checkout/buy/c91e2d74-d3a9-4c2b-b835-bb0ea890f663" class="btn btn-primary btn-large lemonsqueezy-button">Buy
+          Focule Now</a>
+        <span class="hero-price">One-time purchase • No subscriptions</span>
+      </div>
+      <div class="hero-image">
+        <img src="app-screenshot.png" alt="Focule App">
+        <span class="hero-badge">Windows</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: THREE KEY FEATURES -->
+  <section class="features">
+    <div class="container">
+      <div class="features-grid">
+        <div class="feature">
+          <div class="feature-icon">
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+            </svg>
+          </div>
+          <h3>Professional Downloads</h3>
+          <p>Safe, high-quality video & audio from YouTube and Twitch. No sketchy websites or browser extensions.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" />
+            </svg>
+          </div>
+          <h3>Local AI Transcription</h3>
+          <p>Accurate speech-to-text powered by Whisper. Runs offline on your machine. 100% private.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456z" />
+            </svg>
+          </div>
+          <h3>Content Generation</h3>
+          <p>Hooks, descriptions, hashtags, and keywords generated by AI, ready to copy-paste.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: TRUST / PHILOSOPHY -->
+  <section class="trust">
+    <div class="trust-content">
+      <p class="trust-quote">"Your content belongs on <span>your machine</span>, not in a cloud silo. Focule is built
+        for creators who value privacy and ownership."</p>
+      <p class="trust-tagline">Local files. Local AI. No tracking. No compromises.</p>
+    </div>
+  </section>
+
+  <!-- SECTION 4: LARGE CTA -->
+  <section class="cta">
+    <div class="cta-content">
+      <div class="cta-price">$50</div>
+      <p class="cta-note">One-time purchase. Free updates forever.</p>
+        <a href="https://focule.lemonsqueezy.com/checkout/buy/c91e2d74-d3a9-4c2b-b835-bb0ea890f663" class="btn btn-primary btn-large lemonsqueezy-button">Buy
+          Focule Now</a>
+      <div class="cta-features">
+        <span class="cta-feature">
+          <svg fill="none" viewBox="0 0 24 24" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+          </svg>
+          YouTube & Twitch
+        </span>
+        <span class="cta-feature">
+          <svg fill="none" viewBox="0 0 24 24" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+          </svg>
+          Windows
+        </span>
+        <span class="cta-feature">
+          <svg fill="none" viewBox="0 0 24 24" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+          </svg>
+          No subscriptions
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 5: FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <a href="/" class="footer-logo">
+          <img src="logo.png" alt="Focule">
+          <span>Focule</span>
+        </a>
+        <div class="footer-links">
+          <a href="mailto:help@focule.com">Support</a>
+          <a href="https://www.youtube.com/@foculeapp" target="_blank">YouTube</a>
+          <a href="https://x.com/foculeapp" target="_blank">X</a>
+        </div>
+      </div>
+      <p class="footer-copy">© 2025 Focule. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Initialize LemonSqueezy if it's already loaded
+    if (window.LemonSqueezy) {
+      window.createLemonSqueezy();
+    }
+  </script>
+</body>
+
+</html>

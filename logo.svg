@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 40" fill="none">
+  <defs>
+    <linearGradient id="foculeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8B5CF6"/>
+      <stop offset="50%" style="stop-color:#A855F7"/>
+      <stop offset="100%" style="stop-color:#C084FC"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- FOCULE text with tight letter-spacing -->
+  <text x="0" y="28" font-family="Inter, system-ui, sans-serif" font-size="32" font-weight="700" letter-spacing="-2" fill="#cccccc">F</text>
+  <text x="20" y="28" font-family="Inter, system-ui, sans-serif" font-size="32" font-weight="700" letter-spacing="-2" fill="url(#foculeGradient)">O</text>
+  <text x="46" y="28" font-family="Inter, system-ui, sans-serif" font-size="32" font-weight="700" letter-spacing="-2" fill="#cccccc">CULE</text>
+</svg>
