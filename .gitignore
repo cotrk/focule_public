@@ -9,4 +9,9 @@ Thumbs.db
 # Vercel
 .vercel
 
+# Build protection - never include build files
+build/
+../build/
+**/build/
+
 
